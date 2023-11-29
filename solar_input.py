@@ -54,6 +54,18 @@ def parse_star_parameters(line, star):
     **star** — объект звезды.
     """
     pass  # FIXME: допишите парсер
+    objects = []
+    with open(input_filename, 'r') as input_file:
+        for line in input_file:
+        object_type = line.split()[0].lower()
+        if object_type == "star":
+            star = Star()
+            parse_star_parameters(line, star)
+            objects.append(star)
+        elif object_type == "planet":
+            planet = Planet()
+            parse_planet_parameters(line, planet)
+            objects.append(planet)
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
