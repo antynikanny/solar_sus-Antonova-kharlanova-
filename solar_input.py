@@ -4,6 +4,7 @@
 from solar_objects import Star, Planet
 from solar_vis import DrawableObject
 
+
 def read_space_objects_data_from_file(input_filename):
     """Cчитывает данные о космических объектах из файла, создаёт сами объекты
     и вызывает создание их графических образов
@@ -23,11 +24,11 @@ def read_space_objects_data_from_file(input_filename):
             if object_type == "star":
                 star = Star()
                 parse_star_parameters(line, star)
-                objects.append(star)
+                objects.append(DrawableObject(star))
             elif object_type == "planet":
                 planet = Planet()
                 parse_planet_parameters(line, planet)
-                objects.append(planet)
+                objects.append(DrawableObject(planet))
             else:
                 print("Unknown space object")
 
@@ -36,23 +37,19 @@ def read_space_objects_data_from_file(input_filename):
 
 def parse_star_parameters(line, star):
     """Считывает данные о звезде из строки.
-
-    Входная строка должна иметь слеюущий формат:
-
+    Входная строка должна иметь следующий формат:
     Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
-    Здесь (x, y) — координаты зведы, (Vx, Vy) — скорость.
-
+    Здесь (x, y) — координаты звезды, (Vx, Vy) — скорость.
     Пример строки:
-
     Star 10 red 1000 1 2 3 4
 
     Параметры:
 
-    **line** — строка с описание звезды.
-
+    **line** — строка с описанием звезды.
     **star** — объект звезды.
     """
+
     data = line.split()
     star.R = float(data[1])
     star.color = data[2]
@@ -62,22 +59,20 @@ def parse_star_parameters(line, star):
     star.Vx = float(data[6])
     star.Vy = float(data[7])
 
+
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
-    Входная строка должна иметь слеюущий формат:
-
+    Предполагается такая строка:
+    Входная строка должна иметь следующий формат:
     Planet <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
     Здесь (x, y) — координаты планеты, (Vx, Vy) — скорость.
-
     Пример строки:
-
     Planet 10 red 1000 1 2 3 4
 
     Параметры:
 
-    **line** — строка с описание планеты.
-
+    **line** — строка с описанием планеты.
     **planet** — объект планеты.
     """
     data = line.split()
@@ -89,19 +84,16 @@ def parse_planet_parameters(line, planet):
     planet.Vx = float(data[6])
     planet.Vy = float(data[7])
 
+
 def write_space_objects_data_to_file(output_filename, space_objects):
     """Сохраняет данные о космических объектах в файл.
-
     Строки должны иметь следующий формат:
-
     Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
-
     Planet <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
     Параметры:
 
-    **output_filename** — имя входного файла
-
+    **output_filename** — имя выходного файла
     **space_objects** — список объектов планет и звёзд
     """
     with open(output_filename, 'w') as out_file:
@@ -117,6 +109,8 @@ def write_space_objects_data_to_file(output_filename, space_objects):
                 f"{obj_type} {obj.obj.R} {obj.obj.color} {obj.obj.m} {obj.obj.x} {obj.obj.y} {obj.obj.Vx} {obj.obj.Vy}\n"
             )
 
+
+# FIXME: хорошо бы ещё сделать функцию, сохраняющую статистику в заданный файл...
 
 if __name__ == "__main__":
     print("This module is not for direct call!")

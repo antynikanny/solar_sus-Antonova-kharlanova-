@@ -1,6 +1,3 @@
-# coding: utf-8
-# license: GPLv3
-
 import pygame as pg
 from solar_vis import *
 from solar_model import *
