@@ -18,7 +18,7 @@ model_time = 0
 """Физическое время от начала расчёта.
 Тип: float"""
 
-time_scale = 1000.0
+time_scale = 0.0000000000000000000001
 """Шаг по времени при моделировании.
 Тип: float"""
 
@@ -82,7 +82,7 @@ def slider_to_real(val):
 
 def slider_reaction(event):
     global time_scale
-    time_scale = slider_to_real(event.el.get_value())
+    time_scale = 10**3* slider_to_real(event.el.get_value())
 
 def init_ui(screen):
     global browser
@@ -155,7 +155,6 @@ def main():
 
         last_time = cur_time
         drawer.update(space_objects, box)
-        time.sleep(1.0 / 60)
 
     print('Modelling finished!')
 
