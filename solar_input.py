@@ -31,7 +31,7 @@ def read_space_objects_data_from_file(input_filename):
             else:
                 print("Unknown space object")
 
-    return [DrawableObject(obj) for obj in objects]
+    return objects
 
 
 def parse_star_parameters(line, star):
@@ -53,19 +53,14 @@ def parse_star_parameters(line, star):
 
     **star** — объект звезды.
     """
-    pass  # FIXME: допишите парсер
-    objects = []
-    with open(input_filename, 'r') as input_file:
-        for line in input_file:
-        object_type = line.split()[0].lower()
-        if object_type == "star":
-            star = Star()
-            parse_star_parameters(line, star)
-            objects.append(star)
-        elif object_type == "planet":
-            planet = Planet()
-            parse_planet_parameters(line, planet)
-            objects.append(planet)
+    data = line.split()
+    star.R = float(data[1])
+    star.color = data[2]
+    star.m = float(data[3])
+    star.x = float(data[4])
+    star.y = float(data[5])
+    star.Vx = float(data[6])
+    star.Vy = float(data[7])
 
 def parse_planet_parameters(line, planet):
     """Считывает данные о планете из строки.
